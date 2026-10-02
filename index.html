@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestion de Equipos Informaticos</title>
+    <link rel="stylesheet" href="estilos.css">
+
+    <!-- Libreria para las confirmaciones -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
+
+    <div class="contenedor">
+        <div class="encabezado">
+            <h1>Gestion de Equipos Informaticos</h1>
+            <button type="button" id="botonModoOscuro">Modo oscuro</button>
+        </div>
+
+        <section class="formulario">
+            <h2>Ingresar equipo</h2>
+
+            <form id="formularioEquipo">
+                <input type="hidden" id="indiceEditar">
+
+                <div class="campo">
+                    <label for="tipo">Tipo de computadora</label>
+                    <select id="tipo" required>
+                        <option value="">Seleccionar</option>
+                        <option>Notebook</option>
+                        <option>PC de Escritorio</option>
+                        <option>All-in-One</option>
+                        <option>Servidor</option>
+                    </select>
+                </div>
+
+                <div class="campo">
+                    <label for="titular">Nombre del titular</label>
+                    <input type="text" id="titular" placeholder="Ej: Bayon vedia" required>
+                    <small class="error" id="errorTitular"></small>
+                </div>
+
+                <div class="campo">
+                    <label for="marca">Marca del equipo</label>
+                    <input type="text" id="marca" placeholder="Ej: Hp" required>
+                </div>
+
+                <div class="campo">
+                    <label for="procesador">Procesador</label>
+                    <input type="text" id="procesador" placeholder="Ej: Intel Core i9 ultra" required>
+                </div>
+
+                <div class="campo">
+                    <label for="ram">Memoria RAM (GB)</label>
+                    <input type="number" id="ram" placeholder="Ej: 8" min="1" required>
+                    <small class="error" id="errorRam"></small>
+                </div>
+
+                <div class="campo">
+                    <label for="almacenamiento">Disco / Almacenamiento (GB)</label>
+                    <input type="number" id="almacenamiento" placeholder="Ej: 1000" min="1" required>
+                    <small class="error" id="errorAlmacenamiento"></small>
+                </div>
+
+                <div class="campo">
+                    <label for="video">Placa de Video</label>
+                    <input type="text" id="video" placeholder="Ej: Graficos amd" required>
+                </div>
+
+                <div class="campo">
+                    <label for="pantalla">Pulgadas del monitor/pantalla</label>
+                    <input type="number" id="pantalla" placeholder="Ej: 24.4" min="1" step="0.1" required>
+                </div>
+
+                <div class="campo">
+                    <label for="estado">Estado del equipo</label>
+                    <select id="estado" required>
+                        <option value="">Seleccionar</option>
+                        <option>Operativo</option>
+                        <option>En Reparación</option>
+                        <option>Descartado</option>
+                    </select>
+                </div>
+
+                <div class="botones">
+                    <button type="submit" id="botonGuardar">Guardar equipo</button>
+                    <button type="button" id="botonCancelar" class="cancelar">Cancelar edicion</button>
+                </div>
+            </form>
+        </section>
+
+        <section class="equipos">
+            <h2>Equipos registrados</h2>
+
+            <div class="herramientas">
+                <div class="busqueda">
+                    <label for="buscador">Buscar por titular o marca</label>
+                    <input type="text" id="buscador" placeholder="Ej: Juan o HP">
+                </div>
+
+                <div class="filtro">
+                    <label for="filtroEstado">Filtrar por estado</label>
+                    <select id="filtroEstado">
+                        <option value="">Todos los estados</option>
+                        <option value="Operativo">Operativo</option>
+                        <option value="En Reparación">En Reparación</option>
+                        <option value="Descartado">Descartado</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="contadores">
+                <div class="contador">
+                    <span>Total</span>
+                    <strong id="contadorTotal">0</strong>
+                </div>
+                <div class="contador">
+                    <span>Operativos</span>
+                    <strong id="contadorOperativos">0</strong>
+                </div>
+                <div class="contador">
+                    <span>En reparación</span>
+                    <strong id="contadorReparacion">0</strong>
+                </div>
+                <div class="contador">
+                    <span>Descartados</span>
+                    <strong id="contadorDescartados">0</strong>
+                </div>
+            </div>
+
+            <div class="importar-exportar">
+                <button type="button" id="botonExportar">Exportar JSON</button>
+                <label class="boton-importar">
+                    Importar JSON
+                    <input type="file" id="archivoImportar" accept=".json,application/json">
+                </label>
+            </div>
+
+            <div class="tabla-contenedor">
+                <table>
+                    <thead>
+                        <tr>
+                            <th><button class="ordenar" data-campo="tipo">Tipo</button></th>
+                            <th><button class="ordenar" data-campo="titular">Titular</button></th>
+                            <th><button class="ordenar" data-campo="marca">Marca</button></th>
+                            <th><button class="ordenar" data-campo="procesador">Procesador</button></th>
+                            <th><button class="ordenar" data-campo="ram">RAM</button></th>
+                            <th><button class="ordenar" data-campo="almacenamiento">Almacenamiento</button></th>
+                            <th><button class="ordenar" data-campo="video">Video</button></th>
+                            <th><button class="ordenar" data-campo="pantalla">Pantalla</button></th>
+                            <th><button class="ordenar" data-campo="estado">Estado</button></th>
+                            <th>Fecha de registro</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="listaEquipos"></tbody>
+                </table>
+            </div>
+
+            <p id="mensajeVacio">No hay equipos registrados.</p>
+        </section>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,292 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f1f3f6;
+    color: #222;
+    transition: background 0.3s, color 0.3s;
+}
+
+.contenedor {
+    width: 95%;
+    max-width: 1400px;
+    margin: 30px auto;
+}
+
+.encabezado {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+h1 {
+    text-align: center;
+    margin: 0;
+}
+
+.formulario,
+.equipos {
+    background: white;
+    padding: 22px;
+    border-radius: 10px;
+    margin-bottom: 25px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+h2 {
+    margin-top: 0;
+}
+
+form {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px 18px;
+}
+
+.campo {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+label {
+    font-weight: bold;
+}
+
+input,
+select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #bbb;
+    border-radius: 6px;
+    font-size: 14px;
+    min-height: 40px;
+}
+
+.error {
+    color: #a33;
+    font-size: 13px;
+    min-height: 0;
+}
+
+.error {
+    color: #a33;
+    font-size: 13px;
+    min-height: 16px;
+}
+
+.botones {
+    grid-column: 1 / -1;
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+button {
+    border: none;
+    border-radius: 6px;
+    padding: 10px 15px;
+    cursor: pointer;
+    background: #333;
+    color: white;
+}
+
+button:hover {
+    opacity: 0.85;
+}
+
+.cancelar {
+    background: #777;
+}
+
+#buscador {
+    margin-bottom: 15px;
+}
+
+.tabla-contenedor {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 1300px;
+}
+
+th,
+td {
+    border: 1px solid #ddd;
+    padding: 9px;
+    text-align: left;
+}
+
+th {
+    background: #e9ecef;
+}
+
+.ordenar {
+    background: none;
+    color: #222;
+    padding: 0;
+    font-weight: bold;
+}
+
+.accion-editar {
+    background: #555;
+    margin-right: 5px;
+}
+
+.accion-eliminar {
+    background: #a33;
+}
+
+#mensajeVacio {
+    text-align: center;
+    color: #666;
+    display: none;
+}
+
+/* Modo oscuro */
+body.dark-mode {
+    background: #333;
+    color: #fff;
+}
+
+body.dark-mode .formulario,
+body.dark-mode .equipos {
+    background: #444;
+}
+
+body.dark-mode input,
+body.dark-mode select {
+    background: #555;
+    color: #fff;
+    border-color: #777;
+}
+
+body.dark-mode th {
+    background: #555;
+}
+
+body.dark-mode td,
+body.dark-mode th {
+    border-color: #777;
+}
+
+body.dark-mode .ordenar {
+    color: #fff;
+}
+
+body.dark-mode #mensajeVacio {
+    color: #ccc;
+}
+
+@media (max-width: 700px) {
+    .encabezado {
+        flex-direction: column;
+    }
+
+    form {
+        grid-template-columns: 1fr;
+    }
+
+    .botones {
+        grid-column: 1;
+        flex-direction: column;
+    }
+}
+
+
+/* Herramientas de busqueda y filtrado */
+.herramientas {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 18px;
+    margin-bottom: 18px;
+}
+
+.busqueda,
+.filtro {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.busqueda label,
+.filtro label {
+    font-weight: bold;
+}
+
+/* Contadores */
+.contadores {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-bottom: 18px;
+}
+
+.contador {
+    background: #e9ecef;
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.contador span {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.contador strong {
+    font-size: 24px;
+}
+
+/* Importar y exportar */
+.importar-exportar {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.boton-importar {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    padding: 10px 15px;
+    cursor: pointer;
+    background: #333;
+    color: white;
+}
+
+.boton-importar input {
+    display: none;
+}
+
+/* Modo oscuro para las nuevas partes */
+body.dark-mode .contador {
+    background: #555;
+}
+
+body.dark-mode .boton-importar {
+    background: #222;
+}
+
+@media (max-width: 700px) {
+    .herramientas {
+        grid-template-columns: 1fr;
+    }
+
+    .contadores {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .importar-exportar {
+        flex-direction: column;
+    }
+}
